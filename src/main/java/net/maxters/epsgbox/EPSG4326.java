@@ -12,8 +12,8 @@ public class EPSG4326 implements EPSGBoundBoxBuilder {
         double scale = Math.pow(2, zoom);
         double x1 = x / scale * 360 - 180;
         double x2 = (x + 1) / scale * 360 - 180;
-        double y1 = toY(scale, y);
-        double y2 = toY(scale, y + 1);
+        double y1 = toY(scale, y + 1);
+        double y2 = toY(scale, y);
         return new double[]{x1, y1, x2, y2};
     }
 }
