@@ -22,7 +22,19 @@ version = '0.1.1'
 description = 'Map bound box calculator for diffrent EPSG specifications'
 
 sourceCompatibility = 1.8
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
 bintray {
     user = bintrayuser
     key = bintraykey
@@ -47,6 +59,8 @@ publishing {
             groupId = project.group
             artifactId = project.archivesBaseName
             version = project.version
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
