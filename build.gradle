@@ -1,14 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
 plugins {
     id 'java'
+    id "com.jfrog.bintray" version "1.8.4"
+}
+repositories {
+    jcenter()
+    mavenCentral()
 }
 
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 group 'net.maxters'
-version '1.0-SNAPSHOT'
+archivesBaseName = 'epsgbox'
+version = '0.1.1'
+description = 'Map bound box calculator for diffrent EPSG specifications'
 
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
+bintray {
+    user = bintrayuser
+    key = bintraykey
+    dryRun = false
+    pkg {
+        repo = 'maven'
+        name = 'epsgbox'
+        licenses = ['Apache-2.0']
+        publications = ['MyPublication']
+        vcsUrl = 'https://github.com/netmaxt3r/EPSGBox-Android.gitt'
+        version {
+            name = project.version
+            desc = project.description
+            released = new Date()
+        }
+    }
+}
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = project.archivesBaseName
+            version = project.version
+        }
+    }
 }
 
 dependencies {
