@@ -15,4 +15,12 @@ public class EPSGFactory {
         if (builders.containsKey(spec)) return builders.get(spec);
         return null;
     }
+
+    public static void addBuilder(String spec, EPSGBoundBoxBuilder builder) {
+        builders.put(spec, builder);
+    }
+
+    public static void removeBuilder(String spec) {
+        builders.remove(spec);
+    }
 }
